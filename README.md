@@ -9,7 +9,7 @@ externe Tracker, CDNs oder Webfonts.
 - Statisches HTML/CSS/JS
 - 3D-Hintergrund via [three.js](https://threejs.org/) (MIT, lokal in `vendor/`)
 - System-Fonts (kein Google Fonts, kein Webfont-Download)
-- Hero-/Case-Bilder generiert mit [Higgsfield AI](https://higgsfield.ai/)
+- Kundenlogo aus `brand/`
 
 ## Lokal starten
 
@@ -22,27 +22,11 @@ npx serve .
 Dann `http://localhost:8000` öffnen. ES-Module mit Importmap funktionieren
 nicht über `file://`, ein lokaler Server ist also erforderlich.
 
-## Erst-Setup (Bilder herunterladen)
-
-Die Case-Bilder sind aus DSGVO-Gründen nicht auf einem Drittanbieter-CDN
-verlinkt, sondern werden vom eigenen Webroot ausgeliefert. Beim ersten
-Setup müssen sie einmal heruntergeladen werden:
-
-```bash
-./scripts/download-assets.sh
-```
-
-Das Script legt die vier WebP-Dateien unter `images/` ab. Solange die
-Dateien fehlen, fallen die Case-Karten elegant auf einen CSS-Gradient
-zurück — die Seite bleibt also auch ohne Bilder funktional.
-
 ## Deployment
 
 Die Site ist 100 % statisch und läuft auf jedem beliebigen Webhost.
 Empfohlen werden Anbieter mit Sitz in der EU (z. B. Hetzner, IONOS,
-Netcup) oder ein EU-Endpoint bei Cloudflare/Vercel/Netlify. Vor dem
-Deployment einmal `./scripts/download-assets.sh` ausführen, damit die
-Bilder mit ausgeliefert werden.
+Netcup) oder ein EU-Endpoint bei Cloudflare/Vercel/Netlify.
 
 Wichtige Server-Konfiguration:
 
@@ -59,8 +43,8 @@ Wichtige Server-Konfiguration:
 | --- | --- | --- |
 | three.js (`vendor/three.module.js`) | mrdoob / three.js r160 | MIT (siehe `vendor/three.LICENSE.txt`) |
 | Schriftarten | System-Font-Stack (kein externer Webfont) | n/a |
-| Icons (Pfeil-SVG) | inline, im Repo erstellt | eigene Erstellung |
-| Case-Bilder (`images/*.webp`) | Higgsfield AI (Marketing Studio) | gemäß Higgsfield-Nutzungsbedingungen |
+| Icons (SVG inline) | eigene Erstellung | eigene Erstellung |
+| Logo (`brand/logo.*`) | vom Auftraggeber bereitgestellt | gemäß Auftraggeber |
 
 Es werden keine externen CDNs, Google Fonts, Analytics-, Tracking- oder
 Werbedienste eingebunden.
@@ -86,8 +70,5 @@ Consent-Banner ist daher nicht erforderlich.
 ├── vendor/
 │   ├── three.module.js         # three.js r160, MIT
 │   └── three.LICENSE.txt
-├── images/                     # nach Setup: Case-Bilder (WebP)
-├── brand/                      # Kundenlogo & Favicon (siehe brand/README.md)
-└── scripts/
-    └── download-assets.sh      # einmaliger Bild-Download
+└── brand/                      # Kundenlogo & Favicon (siehe brand/README.md)
 ```
