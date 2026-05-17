@@ -46,7 +46,7 @@ def main() -> int:
     print(f"Speichere Thumbnails nach {OUT_DIR}")
 
     for vid, hash_ in VIDEOS:
-        out_path = os.path.join(OUT_DIR, f"{vid}.jpg")
+        out_path = os.path.join(OUT_DIR, f"{vid}.webp")
         try:
             oembed = json.loads(fetch(build_oembed_url(vid, hash_)).decode("utf-8"))
             thumb_url = oembed.get("thumbnail_url")
@@ -57,10 +57,22 @@ def main() -> int:
             thumb_url = thumb_url.split("?")[0]
             if "_640" in thumb_url:
                 thumb_url = thumb_url.replace("_640", "_1280")
-            data = fetch(thumb_url)
-            with open(out_path, "wb") as f:
-                f.write(data)
-            print(f"  ✓ {vid}.jpg ({len(data)//1024} KB)")
+            jpeg_bytes = fetch(thumb_url)
+            # Vimeo liefert JPEG. Wir konvertieren zu WebP (kleiner, gleiche
+            # Qualität) damit das Format zum HTML Naming passt. Falls Pillow
+            # nicht installiert ist, fallen wir auf JPEG zurueck.
+            try:
+                import io
+                from PIL import Image  # type: ignore
+                img = Image.open(io.BytesIO(jpeg_bytes)).convert("RGB")
+                img.thumbnail((1600, 1600), Image.LANCZOS)
+                img.save(out_path, "WEBP", quality=82, method=6)
+                print(f"  ✓ {vid}.webp ({os.path.getsize(out_path)//1024} KB)")
+            except ImportError:
+                fallback = out_path.replace(".webp", ".jpg")
+                with open(fallback, "wb") as f:
+                    f.write(jpeg_bytes)
+                print(f"  ✓ {vid}.jpg ({len(jpeg_bytes)//1024} KB)  – Pillow fehlt, deshalb JPEG")
         except Exception as exc:  # noqa: BLE001
             print(f"  ✗ {vid}: {exc}")
             return 1
