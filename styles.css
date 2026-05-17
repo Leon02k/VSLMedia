@@ -601,12 +601,17 @@ h1 {
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 1.5rem;
   flex-wrap: wrap;
 }
 .footer__copy { font-size: 0.85rem; color: var(--text-faint); }
-.footer__links { display: flex; gap: 1.5rem; font-size: 0.85rem; color: var(--text-dim); }
+.footer__links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  margin-left: auto;
+}
 .footer__links a:hover { color: var(--text); }
 
 /* ───── Reveal ───── */
