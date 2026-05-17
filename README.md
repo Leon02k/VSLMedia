@@ -87,6 +87,7 @@ Consent-Banner ist daher nicht erforderlich.
 │   ├── three.module.js         # three.js r160, MIT
 │   └── three.LICENSE.txt
 ├── images/                     # nach Setup: Case-Bilder (WebP)
+├── brand/                      # Kundenlogo & Favicon (siehe brand/README.md)
 └── scripts/
     └── download-assets.sh      # einmaliger Bild-Download
 ```
