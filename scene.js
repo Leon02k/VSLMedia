@@ -20,26 +20,26 @@ const camera = new THREE.PerspectiveCamera(
 camera.position.set(0, 0, 6);
 
 // ───── Lights ─────
-scene.add(new THREE.AmbientLight(0xffffff, 0.4));
-const key = new THREE.DirectionalLight(0xffffff, 1.6);
+scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+const key = new THREE.DirectionalLight(0xffffff, 1.4);
 key.position.set(5, 4, 5);
 scene.add(key);
-const rim = new THREE.PointLight(0xe4ff3a, 2.5, 12);
+const rim = new THREE.PointLight(0xc8d4e0, 1.8, 12);
 rim.position.set(-3, -2, 3);
 scene.add(rim);
-const fill = new THREE.PointLight(0x6366f1, 1.6, 12);
+const fill = new THREE.PointLight(0xe5dcc8, 1.4, 12);
 fill.position.set(3, 2, -2);
 scene.add(fill);
 
 // ───── Central torus knot ─────
 const knotGeo = new THREE.TorusKnotGeometry(1.1, 0.32, 220, 32, 2, 3);
 const knotMat = new THREE.MeshPhysicalMaterial({
-  color: 0x111114,
-  metalness: 0.85,
-  roughness: 0.18,
+  color: 0xe8e8ec,
+  metalness: 0.7,
+  roughness: 0.22,
   clearcoat: 1.0,
-  clearcoatRoughness: 0.25,
-  reflectivity: 0.8,
+  clearcoatRoughness: 0.2,
+  reflectivity: 0.9,
 });
 const knot = new THREE.Mesh(knotGeo, knotMat);
 scene.add(knot);
@@ -47,10 +47,10 @@ scene.add(knot);
 // ───── Wireframe halo ─────
 const haloGeo = new THREE.IcosahedronGeometry(2.4, 1);
 const haloMat = new THREE.MeshBasicMaterial({
-  color: 0xffffff,
+  color: 0x0a0a0b,
   wireframe: true,
   transparent: true,
-  opacity: 0.06,
+  opacity: 0.05,
 });
 const halo = new THREE.Mesh(haloGeo, haloMat);
 scene.add(halo);
@@ -69,10 +69,10 @@ for (let i = 0; i < pCount; i++) {
 const pGeo = new THREE.BufferGeometry();
 pGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 const pMat = new THREE.PointsMaterial({
-  color: 0xffffff,
+  color: 0x0a0a0b,
   size: 0.018,
   transparent: true,
-  opacity: 0.55,
+  opacity: 0.35,
   sizeAttenuation: true,
 });
 const points = new THREE.Points(pGeo, pMat);
