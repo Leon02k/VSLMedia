@@ -19,7 +19,7 @@
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   background: var(--bg);
   color: var(--text);
   line-height: 1.55;
@@ -57,7 +57,7 @@ a { color: inherit; text-decoration: none; }
   display: flex;
   align-items: center;
   gap: 0.55rem;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-weight: 700;
   font-size: 1.05rem;
   letter-spacing: -0.01em;
@@ -127,7 +127,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 h1 {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-size: clamp(2.8rem, 9vw, 7.5rem);
   line-height: 0.95;
   letter-spacing: -0.04em;
@@ -202,7 +202,7 @@ h1 {
 .hero__stats div { text-align: center; }
 .hero__stats strong {
   display: block;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-size: clamp(1.6rem, 3vw, 2.2rem);
   font-weight: 500;
   letter-spacing: -0.02em;
@@ -252,7 +252,7 @@ h1 {
   max-width: 720px;
 }
 .section__head h2 {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-size: clamp(2rem, 4.5vw, 3.6rem);
   letter-spacing: -0.03em;
   line-height: 1.05;
@@ -296,14 +296,14 @@ h1 {
 }
 .card:hover::before { opacity: 1; }
 .card__num {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-size: 0.8rem;
   color: var(--accent);
   margin-bottom: 2.5rem;
   letter-spacing: 0.1em;
 }
 .card h3 {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-size: 1.35rem;
   font-weight: 500;
   margin-bottom: 0.6rem;
@@ -334,14 +334,14 @@ h1 {
 }
 .process__step {
   display: block;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-size: 0.8rem;
   color: var(--accent);
   margin-bottom: 1.5rem;
   letter-spacing: 0.1em;
 }
 .process h3 {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-size: 1.4rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
@@ -370,10 +370,38 @@ h1 {
     linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.4) 100%),
     radial-gradient(circle at 30% 30%, rgba(255,255,255,0.15), transparent 50%);
 }
-.case__visual--1 { background: linear-gradient(135deg, #1a1a2e, #0f3460); }
-.case__visual--2 { background: linear-gradient(135deg, #2d1b3d, #4a1d3a); }
-.case__visual--3 { background: linear-gradient(135deg, #0d2818, #1d3d2b); }
-.case__visual--4 { background: linear-gradient(135deg, #2a2418, #4a3a1d); }
+.case__visual--1 {
+  background:
+    linear-gradient(135deg, #1a1a2e, #0f3460),
+    url("./images/case-saas.webp");
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay;
+}
+.case__visual--2 {
+  background:
+    linear-gradient(135deg, #2d1b3d, #4a1d3a),
+    url("./images/case-dtc.webp");
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay;
+}
+.case__visual--3 {
+  background:
+    linear-gradient(135deg, #0d2818, #1d3d2b),
+    url("./images/case-brand.webp");
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay;
+}
+.case__visual--4 {
+  background:
+    linear-gradient(135deg, #2a2418, #4a3a1d),
+    url("./images/case-fintech.webp");
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay;
+}
 
 .case__meta { padding: 1.6rem 1.75rem 1.9rem; }
 .case__meta span {
@@ -383,7 +411,7 @@ h1 {
   color: var(--accent);
 }
 .case__meta h3 {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-size: 1.4rem;
   font-weight: 500;
   margin: 0.6rem 0 0.5rem;
@@ -403,7 +431,7 @@ h1 {
     linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
 }
 .cta h2 {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-size: clamp(2rem, 5vw, 3.5rem);
   letter-spacing: -0.03em;
   line-height: 1.05;
