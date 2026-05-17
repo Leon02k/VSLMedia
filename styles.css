@@ -203,23 +203,6 @@ h1 {
   font-size: 1rem;
 }
 
-.hero__scroll {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.7rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--text-faint);
-  writing-mode: vertical-rl;
-  animation: bob 2.5s ease-in-out infinite;
-}
-@keyframes bob {
-  0%, 100% { transform: translate(-50%, 0); opacity: 0.5; }
-  50% { transform: translate(-50%, 8px); opacity: 1; }
-}
-
 /* ───── Sections ───── */
 .section {
   position: relative;
