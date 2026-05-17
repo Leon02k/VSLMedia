@@ -368,18 +368,23 @@ h1 {
 /* Mittlere Card breiter und leicht tiefer — wirkt wie der Anker der Reihe.
    Kollabiert auf Mobile/Tablet auf gleiche Spalten. */
 .testimonials.grid--3 {
-  grid-template-columns: 1fr 1.2fr 1fr;
+  grid-template-columns: 0.82fr 1.25fr 0.82fr;
   align-items: center;
-  gap: 1.25rem;
+  gap: 1.5rem;
 }
 .testimonials .testimonial:nth-child(2) {
   transform: scale(1.04);
   z-index: 1;
   box-shadow: 0 30px 60px -25px rgba(0, 0, 0, 0.55);
 }
+.testimonials .testimonial:nth-child(1),
+.testimonials .testimonial:nth-child(3) {
+  transform: scale(0.94);
+  transform-origin: center;
+}
 @media (max-width: 900px) {
   .testimonials.grid--3 { grid-template-columns: repeat(2, 1fr); }
-  .testimonials .testimonial:nth-child(2) { transform: none; box-shadow: none; }
+  .testimonials .testimonial { transform: none !important; box-shadow: none; }
 }
 @media (max-width: 620px) {
   .testimonials.grid--3 { grid-template-columns: 1fr; }
