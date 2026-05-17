@@ -644,16 +644,17 @@ h1 {
     padding-bottom: 2rem;
   }
   h1 {
-    font-size: clamp(2.2rem, 11vw, 3.4rem);
-    line-height: 1.02;
-    letter-spacing: -0.03em;
+    font-size: clamp(1.9rem, 8.4vw, 2.6rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
     margin-bottom: 1.2rem;
   }
   .eyebrow {
-    font-size: 0.7rem;
-    letter-spacing: 0.16em;
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
     margin-bottom: 1rem;
-    padding: 0.35rem 0.75rem;
+    padding: 0.32rem 0.7rem;
+    line-height: 1.4;
   }
   .hero__sub {
     margin-bottom: 1.75rem;

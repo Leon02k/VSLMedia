@@ -88,9 +88,17 @@ async function loadAperture() {
     blades.push(mesh);
   });
 
-  apertureGroup.scale.setScalar(1.6);
+  applyApertureScale();
 }
 loadAperture();
+
+// Logo Größe an Bildschirmverhältnis anpassen: auf Portrait/Mobile
+// schrumpft die Blende, damit sie nicht über den ganzen Screen quillt.
+function applyApertureScale() {
+  const aspect = window.innerWidth / window.innerHeight;
+  const scale = Math.min(1.6, Math.max(0.85, aspect * 1.4));
+  apertureGroup.scale.setScalar(scale);
+}
 
 // ───── Wireframe halo ─────
 const haloGeo = new THREE.IcosahedronGeometry(2.6, 1);
@@ -149,6 +157,7 @@ window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
+  applyApertureScale();
 });
 
 // ───── Animation loop ─────
