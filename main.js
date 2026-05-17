@@ -65,7 +65,7 @@ document.querySelectorAll('.card').forEach((card) => {
     el.addEventListener('pointerleave', () => cursor.classList.remove('is-hover'));
   });
 
-  const ease = 0.22;
+  const ease = 0.14;
   function tick() {
     cx += (mx - cx) * ease;
     cy += (my - cy) * ease;

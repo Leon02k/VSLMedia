@@ -605,38 +605,47 @@ h1 {
   position: fixed;
   top: 0;
   left: 0;
-  width: 28px;
-  height: 28px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
-  transform: translate3d(-100px, -100px, 0);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  backdrop-filter: blur(8px) saturate(160%);
-  -webkit-backdrop-filter: blur(8px) saturate(160%);
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.06),
-    0 4px 24px rgba(0, 0, 0, 0.18);
-  transition: width .3s cubic-bezier(.2,.7,.2,1),
-              height .3s cubic-bezier(.2,.7,.2,1),
-              background .3s,
-              border-color .3s,
-              opacity .25s;
+  transform: translate3d(-200px, -200px, 0);
+  background:
+    radial-gradient(circle at 50% 50%,
+      rgba(255, 255, 255, 0.14) 0%,
+      rgba(255, 255, 255, 0.07) 45%,
+      rgba(255, 255, 255, 0)   100%);
+  backdrop-filter: blur(10px) saturate(140%);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
+  /* Weiche Maske: Blur wird zum Rand hin transparent — keine harte Kante */
+  mask: radial-gradient(circle at 50% 50%, #000 35%, rgba(0,0,0,0.4) 65%, transparent 100%);
+  -webkit-mask: radial-gradient(circle at 50% 50%, #000 35%, rgba(0,0,0,0.4) 65%, transparent 100%);
+  transition: width .55s cubic-bezier(.22,.61,.36,1),
+              height .55s cubic-bezier(.22,.61,.36,1),
+              background .45s ease,
+              opacity .35s ease;
   will-change: transform;
   opacity: 0;
 }
 .glass-cursor.is-ready { opacity: 1; }
 .glass-cursor.is-hover {
-  width: 64px;
-  height: 64px;
-  background: rgba(255, 255, 255, 0.10);
-  border-color: rgba(255, 255, 255, 0.35);
+  width: 110px;
+  height: 110px;
+  background:
+    radial-gradient(circle at 50% 50%,
+      rgba(255, 255, 255, 0.18) 0%,
+      rgba(255, 255, 255, 0.09) 45%,
+      rgba(255, 255, 255, 0)   100%);
 }
 .glass-cursor.is-press {
-  width: 22px;
-  height: 22px;
-  background: rgba(255, 255, 255, 0.18);
+  width: 45px;
+  height: 45px;
+  background:
+    radial-gradient(circle at 50% 50%,
+      rgba(255, 255, 255, 0.22) 0%,
+      rgba(255, 255, 255, 0.10) 45%,
+      rgba(255, 255, 255, 0)   100%);
 }
 @media (pointer: coarse), (prefers-reduced-motion: reduce) {
   .glass-cursor { display: none; }
