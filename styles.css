@@ -364,30 +364,69 @@ h1 {
 }
 .eyebrow--accent { color: var(--accent); border-color: rgba(228,255,58,0.3); }
 
-/* ───── Testimonials ───── */
-/* Mittlere Card breiter und leicht tiefer — wirkt wie der Anker der Reihe.
-   Kollabiert auf Mobile/Tablet auf gleiche Spalten. */
+/* ───── Testimonials Carousel ─────
+   Karten haben drei feste Slots (links, mitte, rechts) und werden via
+   JS rotiert. Iframes bleiben im DOM stehen, nur das Transform ändert
+   sich → keine erneuten Vimeo Requests, Videos behalten ihren Zustand. */
 .testimonials.grid--3 {
-  grid-template-columns: 0.82fr 1.25fr 0.82fr;
-  align-items: center;
-  gap: 1.5rem;
+  display: block;          /* Grid auf Desktop überschreiben */
+  position: relative;
+  height: clamp(420px, 38vw, 560px);
+  margin-top: 1rem;
 }
-.testimonials .testimonial:nth-child(2) {
-  transform: scale(1.04);
+.testimonials .testimonial {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: clamp(280px, 28vw, 380px);
+  margin-left: calc(-1 * clamp(280px, 28vw, 380px) / 2);
+  transition:
+    transform 0.9s cubic-bezier(.22, 0.61, 0.36, 1),
+    opacity   0.7s ease,
+    filter    0.7s ease;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+.testimonials .testimonial.is-left {
+  transform: translate(calc(-1 * clamp(310px, 31vw, 420px)), 28px) scale(0.86);
+  opacity: 0.78;
+  filter: brightness(0.85);
   z-index: 1;
-  box-shadow: 0 30px 60px -25px rgba(0, 0, 0, 0.55);
 }
-.testimonials .testimonial:nth-child(1),
-.testimonials .testimonial:nth-child(3) {
-  transform: scale(0.94);
-  transform-origin: center;
+.testimonials .testimonial.is-mid {
+  transform: translate(0, 0) scale(1.0);
+  opacity: 1;
+  filter: none;
+  z-index: 2;
+  box-shadow: 0 35px 80px -25px rgba(0, 0, 0, 0.6);
 }
+.testimonials .testimonial.is-right {
+  transform: translate(clamp(310px, 31vw, 420px), 28px) scale(0.86);
+  opacity: 0.78;
+  filter: brightness(0.85);
+  z-index: 1;
+}
+
+/* Mobile/Tablet: Karussell auflösen, Karten gestapelt darstellen */
 @media (max-width: 900px) {
-  .testimonials.grid--3 { grid-template-columns: repeat(2, 1fr); }
-  .testimonials .testimonial { transform: none !important; box-shadow: none; }
-}
-@media (max-width: 620px) {
-  .testimonials.grid--3 { grid-template-columns: 1fr; }
+  .testimonials.grid--3 {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    height: auto;
+    position: static;
+  }
+  .testimonials .testimonial {
+    position: static !important;
+    width: 100% !important;
+    margin: 0 !important;
+    transform: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+    box-shadow: none !important;
+    transition: none !important;
+  }
 }
 
 .testimonial {
