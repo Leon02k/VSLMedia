@@ -80,6 +80,16 @@ document.querySelectorAll('.card').forEach((card) => {
     setTimeout(start, 30000);
   });
 
+  // Klick auf eine Seitenkarte schiebt sie in die Mitte
+  cards.forEach((card, i) => {
+    card.addEventListener('click', () => {
+      if (mq.matches || reduced.matches) return;
+      if (card.classList.contains('is-mid')) return;
+      offset = (1 - i + cards.length) % cards.length;
+      applySlots(offset);
+    });
+  });
+
   // Reagiere auf Wechsel zwischen Mobile und Desktop
   mq.addEventListener?.('change', (e) => (e.matches ? stop() : start()));
   reduced.addEventListener?.('change', (e) => (e.matches ? stop() : start()));
