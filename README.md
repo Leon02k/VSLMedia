@@ -59,6 +59,18 @@ Pflichtseiten. Es werden beim Aufruf der Website **keine Cookies** und
 keine vergleichbaren Browser-Storage-Technologien gesetzt; auch ein
 Consent-Banner ist daher nicht erforderlich.
 
+## Video Thumbnails einmal herunterladen
+
+Damit die 4 Vimeo Vorschaubilder vom eigenen Webroot ausgeliefert werden
+(keine Drittanbieter Requests vor Klick), liegt ein Helfer Skript bereit:
+
+```bash
+./scripts/download-thumbnails.py
+```
+
+Das speichert die JPGs in `brand/thumbs/`. Solange die Dateien fehlen,
+fällt jedes Video Tile elegant auf den dunklen Gradient zurück.
+
 ## Pre Launch Checkliste (rechtliche Pflichten)
 
 Diese Punkte muss der Auftraggeber **vor** dem Livegang prüfen oder
