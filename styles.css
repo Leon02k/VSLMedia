@@ -83,12 +83,9 @@ a { color: inherit; text-decoration: none; }
 .nav__links {
   display: flex;
   gap: 2rem;
+  margin-left: 2.5rem;
   font-size: 0.9rem;
   color: var(--text-dim);
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
 }
 .nav__links a { transition: color .2s; }
 .nav__links a:hover { color: var(--text); }
@@ -99,6 +96,7 @@ a { color: inherit; text-decoration: none; }
   border: 1px solid var(--line-strong);
   border-radius: 999px;
   transition: all .25s;
+  margin-left: auto;
 }
 .nav__cta:hover {
   background: var(--text);
