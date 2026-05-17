@@ -20,70 +20,75 @@ const camera = new THREE.PerspectiveCamera(
 camera.position.set(0, 0, 6);
 
 // ───── Lights ─────
-scene.add(new THREE.AmbientLight(0xffffff, 0.4));
-const key = new THREE.DirectionalLight(0xffffff, 1.4);
+scene.add(new THREE.AmbientLight(0xffffff, 0.45));
+const key = new THREE.DirectionalLight(0xffffff, 1.5);
 key.position.set(5, 4, 5);
 scene.add(key);
-const rim = new THREE.PointLight(0xe4ff3a, 2.2, 14);
+const rim = new THREE.PointLight(0xe4ff3a, 2.0, 14);
 rim.position.set(-3, -2, 3);
 scene.add(rim);
 const fill = new THREE.PointLight(0x6366f1, 1.4, 14);
 fill.position.set(3, 2, -2);
 scene.add(fill);
 
-// ───── Aperture (Logo als 3D) ─────
-// Eine Lamelle als 2D-Shape, danach extrudiert und 6× rotiert um die Z-Achse.
-// Form orientiert sich am Logo: außen breit, innen mit gerundeter Spitze
-// nahe dem zentralen Loch.
-function makeBladeShape() {
-  const s = new THREE.Shape();
-  s.moveTo(0.18, -0.02);
-  s.bezierCurveTo(0.55, 0.02, 0.95, 0.18, 1.15, 0.45);   // obere Kante
-  s.bezierCurveTo(1.22, 0.50, 1.22, 0.05, 1.08, -0.10);  // außen gerundete Spitze
-  s.bezierCurveTo(0.75, -0.22, 0.40, -0.14, 0.18, -0.02); // untere Kante zurück
-  return s;
-}
-
+// ───── Aperture: echte Logo-Konturen aus brand/logo-shapes.json ─────
+// Die Datei enthält 6 Polygone (je eine Lamelle), normiert auf [-1, +1]
+// um den Logo-Mittelpunkt. Wir bauen daraus 6 ExtrudeGeometries und
+// gruppieren sie. So bleiben die Lücken zwischen den Lamellen erhalten.
 const apertureGroup = new THREE.Group();
-const bladeMat = new THREE.MeshPhysicalMaterial({
-  color: 0xf3f3f5,
-  metalness: 0.45,
-  roughness: 0.28,
-  clearcoat: 1.0,
-  clearcoatRoughness: 0.2,
-  reflectivity: 0.7,
-  sheen: 0.6,
-  sheenRoughness: 0.4,
-  sheenColor: 0xcccccc,
-});
-const bladeGeo = new THREE.ExtrudeGeometry(makeBladeShape(), {
-  depth: 0.07,
-  bevelEnabled: true,
-  bevelThickness: 0.015,
-  bevelSize: 0.018,
-  bevelOffset: 0,
-  bevelSegments: 4,
-  curveSegments: 32,
-});
-bladeGeo.center();
-
-const BLADES = 6;
-const blades = [];
-for (let i = 0; i < BLADES; i++) {
-  const blade = new THREE.Mesh(bladeGeo, bladeMat);
-  const a = (i / BLADES) * Math.PI * 2;
-  blade.userData.angle = a;
-  apertureGroup.add(blade);
-  blades.push(blade);
-}
-// Optionale dünne Mittelscheibe — gibt der Mitte mehr Tiefe.
-const hubGeo = new THREE.CylinderGeometry(0.08, 0.08, 0.08, 32);
-const hub = new THREE.Mesh(hubGeo, bladeMat);
-hub.rotation.x = Math.PI / 2;
-apertureGroup.add(hub);
-
-apertureGroup.scale.setScalar(0.95);
 scene.add(apertureGroup);
+
+const bladeMat = new THREE.MeshPhysicalMaterial({
+  color: 0xf6f6f8,
+  metalness: 0.55,
+  roughness: 0.26,
+  clearcoat: 1.0,
+  clearcoatRoughness: 0.18,
+  reflectivity: 0.8,
+});
+
+let blades = [];
+
+async function loadAperture() {
+  const res = await fetch('./brand/logo-shapes.json', { cache: 'force-cache' });
+  if (!res.ok) {
+    console.warn('logo-shapes.json fehlt');
+    return;
+  }
+  const polygons = await res.json();
+
+  polygons.forEach((points) => {
+    const shape = new THREE.Shape();
+    shape.moveTo(points[0][0], points[0][1]);
+    for (let i = 1; i < points.length; i++) {
+      shape.lineTo(points[i][0], points[i][1]);
+    }
+    const geo = new THREE.ExtrudeGeometry(shape, {
+      depth: 0.14,
+      bevelEnabled: true,
+      bevelThickness: 0.02,
+      bevelSize: 0.02,
+      bevelOffset: 0,
+      bevelSegments: 4,
+      curveSegments: 12,
+    });
+    // Tiefe um 0 zentrieren, damit Z-Rotation nicht "schräg" wirkt
+    geo.translate(0, 0, -0.07);
+
+    geo.computeBoundingBox();
+    const cx = (geo.boundingBox.min.x + geo.boundingBox.max.x) / 2;
+    const cy = (geo.boundingBox.min.y + geo.boundingBox.max.y) / 2;
+    const angle = Math.atan2(cy, cx);
+
+    const mesh = new THREE.Mesh(geo, bladeMat);
+    mesh.userData.angle = angle;
+    apertureGroup.add(mesh);
+    blades.push(mesh);
+  });
+
+  apertureGroup.scale.setScalar(1.6);
+}
+loadAperture();
 
 // ───── Wireframe halo ─────
 const haloGeo = new THREE.IcosahedronGeometry(2.6, 1);
@@ -149,18 +154,16 @@ function tick() {
   mouse.x += (target.x - mouse.x) * 0.05;
   mouse.y += (target.y - mouse.y) * 0.05;
 
-  // Blende dreht sich kontinuierlich, leichte Kippung über Maus
+  // Logo dreht sich gemächlich, leichte Kippung folgt der Maus
   apertureGroup.rotation.z = t * 0.18;
-  apertureGroup.rotation.x = mouse.y * 0.35;
-  apertureGroup.rotation.y = mouse.x * 0.45;
+  apertureGroup.rotation.x = mouse.y * 0.3;
+  apertureGroup.rotation.y = mouse.x * 0.4;
 
-  // Atmen: jede Lamelle wandert sanft radial nach außen und zurück
-  const breath = Math.sin(t * 0.7) * 0.08 + 0.05;
+  // Subtiles Atmen: jede Lamelle wandert minimal radial nach außen
+  const breath = Math.sin(t * 0.6) * 0.04;
   blades.forEach((blade) => {
     const a = blade.userData.angle;
-    const r = breath;
-    blade.position.set(Math.cos(a) * r, Math.sin(a) * r, 0);
-    blade.rotation.z = a;
+    blade.position.set(Math.cos(a) * breath, Math.sin(a) * breath, 0);
   });
 
   halo.rotation.x = -t * 0.05;
