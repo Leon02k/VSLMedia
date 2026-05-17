@@ -605,46 +605,42 @@ h1 {
   position: fixed;
   top: 0;
   left: 0;
-  width: 60px;
-  height: 60px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
   transform: translate3d(-200px, -200px, 0);
   background:
     radial-gradient(circle at 50% 50%,
-      rgba(255, 255, 255, 0.14) 0%,
-      rgba(255, 255, 255, 0.07) 45%,
+      rgba(255, 255, 255, 0.20) 0%,
+      rgba(255, 255, 255, 0.08) 55%,
       rgba(255, 255, 255, 0)   100%);
-  backdrop-filter: blur(10px) saturate(140%);
-  -webkit-backdrop-filter: blur(10px) saturate(140%);
-  /* Weiche Maske: Blur wird zum Rand hin transparent — keine harte Kante */
-  mask: radial-gradient(circle at 50% 50%, #000 35%, rgba(0,0,0,0.4) 65%, transparent 100%);
-  -webkit-mask: radial-gradient(circle at 50% 50%, #000 35%, rgba(0,0,0,0.4) 65%, transparent 100%);
-  transition: width .55s cubic-bezier(.22,.61,.36,1),
-              height .55s cubic-bezier(.22,.61,.36,1),
-              background .45s ease,
+  backdrop-filter: blur(3px) saturate(130%);
+  -webkit-backdrop-filter: blur(3px) saturate(130%);
+  mask: radial-gradient(circle at 50% 50%, #000 40%, rgba(0,0,0,0.3) 70%, transparent 100%);
+  -webkit-mask: radial-gradient(circle at 50% 50%, #000 40%, rgba(0,0,0,0.3) 70%, transparent 100%);
+  transition: transform .35s cubic-bezier(.22,.61,.36,1),
+              background .35s ease,
               opacity .35s ease;
   will-change: transform;
   opacity: 0;
 }
 .glass-cursor.is-ready { opacity: 1; }
 .glass-cursor.is-hover {
-  width: 110px;
-  height: 110px;
+  /* Keine Größenänderung — nur ein klein wenig kräftiger gefärbt,
+     damit nichts unter dem Cursor verschwindet */
   background:
     radial-gradient(circle at 50% 50%,
-      rgba(255, 255, 255, 0.18) 0%,
-      rgba(255, 255, 255, 0.09) 45%,
-      rgba(255, 255, 255, 0)   100%);
+      rgba(228, 255, 58, 0.55) 0%,
+      rgba(228, 255, 58, 0.18) 55%,
+      rgba(228, 255, 58, 0)    100%);
 }
 .glass-cursor.is-press {
-  width: 45px;
-  height: 45px;
   background:
     radial-gradient(circle at 50% 50%,
-      rgba(255, 255, 255, 0.22) 0%,
-      rgba(255, 255, 255, 0.10) 45%,
+      rgba(255, 255, 255, 0.45) 0%,
+      rgba(255, 255, 255, 0.15) 55%,
       rgba(255, 255, 255, 0)   100%);
 }
 @media (pointer: coarse), (prefers-reduced-motion: reduce) {
