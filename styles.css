@@ -367,6 +367,26 @@ h1 {
 .eyebrow--accent { color: var(--accent); border-color: rgba(228,255,58,0.3); }
 
 /* ───── Testimonials ───── */
+/* Mittlere Card breiter und leicht tiefer — wirkt wie der Anker der Reihe.
+   Kollabiert auf Mobile/Tablet auf gleiche Spalten. */
+.testimonials.grid--3 {
+  grid-template-columns: 1fr 1.2fr 1fr;
+  align-items: center;
+  gap: 1.25rem;
+}
+.testimonials .testimonial:nth-child(2) {
+  transform: scale(1.04);
+  z-index: 1;
+  box-shadow: 0 30px 60px -25px rgba(0, 0, 0, 0.55);
+}
+@media (max-width: 900px) {
+  .testimonials.grid--3 { grid-template-columns: repeat(2, 1fr); }
+  .testimonials .testimonial:nth-child(2) { transform: none; box-shadow: none; }
+}
+@media (max-width: 620px) {
+  .testimonials.grid--3 { grid-template-columns: 1fr; }
+}
+
 .testimonial {
   position: relative;
   border: 1px solid var(--line);
