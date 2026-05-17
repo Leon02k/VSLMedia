@@ -24,9 +24,11 @@ scene.add(new THREE.AmbientLight(0xffffff, 0.45));
 const key = new THREE.DirectionalLight(0xffffff, 1.5);
 key.position.set(5, 4, 5);
 scene.add(key);
-const rim = new THREE.PointLight(0xe4ff3a, 2.0, 14);
+const rim = new THREE.PointLight(0xe4ff3a, 1.6, 10);
 rim.position.set(-3, -2, 3);
 scene.add(rim);
+// Wohin das gelbe Licht hinwandert (folgt dem Cursor)
+const rimTarget = new THREE.Vector2(-3, -2);
 const fill = new THREE.PointLight(0x6366f1, 1.4, 14);
 fill.position.set(3, 2, -2);
 scene.add(fill);
@@ -130,6 +132,10 @@ const target = new THREE.Vector2(0, 0);
 window.addEventListener('pointermove', (e) => {
   target.x = (e.clientX / window.innerWidth) * 2 - 1;
   target.y = -((e.clientY / window.innerHeight) * 2 - 1);
+  // Gelb-grünes Rim Licht wandert in die ungefähre Cursor-Richtung,
+  // sodass es das Logo aus der Maus-Position heraus anleuchtet.
+  rimTarget.x = target.x * 4.5;
+  rimTarget.y = target.y * 2.8;
 });
 
 // ───── Scroll-driven camera ─────
@@ -153,6 +159,10 @@ function tick() {
 
   mouse.x += (target.x - mouse.x) * 0.05;
   mouse.y += (target.y - mouse.y) * 0.05;
+
+  // Gelb-grünes Rim Licht weich an die Cursor-Position annähern
+  rim.position.x += (rimTarget.x - rim.position.x) * 0.06;
+  rim.position.y += (rimTarget.y - rim.position.y) * 0.06;
 
   // Logo dreht sich gemächlich, leichte Kippung folgt der Maus
   apertureGroup.rotation.z = t * 0.18;
