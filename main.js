@@ -29,3 +29,20 @@ document.querySelectorAll('.card').forEach((card) => {
     card.style.setProperty('--my', `${e.clientY - r.top}px`);
   });
 });
+
+// Click-to-load Vimeo: erst nach Nutzer-Interaktion wird Vimeo geladen.
+// Vorher: kein Request an Vimeo, keine Cookies, kein Drittland-Transfer.
+document.querySelectorAll('.video__placeholder[data-video-id]').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const id = btn.dataset.videoId;
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://player.vimeo.com/video/${id}?autoplay=1&dnt=1&pip=0&portrait=0&byline=0&title=0`;
+    iframe.title = 'Showreel';
+    iframe.loading = 'lazy';
+    iframe.allow = 'autoplay; fullscreen; picture-in-picture';
+    iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+    iframe.setAttribute('allowfullscreen', '');
+    iframe.className = 'video__iframe';
+    btn.replaceWith(iframe);
+  });
+});
