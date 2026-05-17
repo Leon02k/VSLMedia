@@ -85,6 +85,10 @@ a { color: inherit; text-decoration: none; }
   gap: 2rem;
   font-size: 0.9rem;
   color: var(--text-dim);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 .nav__links a { transition: color .2s; }
 .nav__links a:hover { color: var(--text); }
