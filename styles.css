@@ -1,6 +1,6 @@
 :root {
-  --bg: #0a0a0b;
-  --bg-2: #0f0f11;
+  --bg: #050506;
+  --bg-2: #0c0c0e;
   --surface: #141418;
   --line: rgba(255, 255, 255, 0.08);
   --line-strong: rgba(255, 255, 255, 0.16);
@@ -115,6 +115,21 @@ a { color: inherit; text-decoration: none; }
   display: flex;
   align-items: center;
   justify-content: center;
+  isolation: isolate;
+}
+/* Sanfte Vignette hinter dem Hero Text: dunkelt den Bereich um die
+   Schrift ab, ohne das 3D Logo komplett zu schlucken. */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 55%,
+      rgba(0, 0, 0, 0.55) 0%,
+      rgba(0, 0, 0, 0.25) 45%,
+      rgba(0, 0, 0, 0)    80%);
 }
 .hero__inner {
   max-width: var(--max);
