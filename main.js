@@ -37,7 +37,7 @@ document.querySelectorAll('.video__placeholder[data-video-id]').forEach((btn) =>
     const id = btn.dataset.videoId;
     const iframe = document.createElement('iframe');
     iframe.src = `https://player.vimeo.com/video/${id}?autoplay=1&dnt=1&pip=0&portrait=0&byline=0&title=0`;
-    iframe.title = 'Showreel';
+    iframe.title = 'Persönliche Vorstellung von Joschua Dörr, Gründer von VSL Media';
     iframe.loading = 'lazy';
     iframe.allow = 'autoplay; fullscreen; picture-in-picture';
     iframe.referrerPolicy = 'strict-origin-when-cross-origin';
